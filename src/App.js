@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter as Router, Route } from "react-router-dom";
+import Etusivu from "./components/Etusivu";
+import Selaa from "./components/Selaa";
+import Valikko from "./components/Valikko";
+import Tiedot from "./components/Tiedot";
+import {useState} from "react";
+
+
+
+
 
 function App() {
+
+  const [indx, setIndx] = useState(0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router >
+      <Valikko/>
+      <Route path="/" exact component={Etusivu}/>
+      <Route path="/selaa" render={
+        (props) => (<Selaa indx={indx} setIndx={setIndx}/>)
+      }/>
+      <Route path="/postimerkki/:id" exact component={Tiedot}/>
+    </Router>
   );
 }
 
